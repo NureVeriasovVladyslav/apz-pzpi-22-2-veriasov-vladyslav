@@ -1,0 +1,123 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+// Looking for ways to speed up your queries, or scale easily with your serverless or edge functions?
+// Try Prisma Accelerate: https://pris.ly/cli/accelerate-init
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model User {
+  id                  String   @default(uuid()) @id
+  email               String   @unique
+  name                String?
+  password            String 
+  phoneNumber         String? 
+  bonusAccount        String?
+  notification        Boolean  @default(false)
+  role                Role     @default(USER)
+  photo               String?
+  rental              Rental[] 
+}
+
+model Rental {
+  id                  String   @default(uuid()) @id
+  isActive            Boolean  @default(true) 
+  dateRented          String
+  dateReturned        String
+  userId              String
+  distance            Float
+  avgSpeed            Float
+  maxSpeed            Float
+  energyConsumed      Float
+  user                User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  payment             Payment?
+  rentalVehicle       RentalVehicle[]
+}
+
+model Payment {
+  id                  String   @default(uuid()) @id
+  paymentMethod       PaymentMethodTypes  @default(MASTERCARD) 
+  amount              String
+  date                String
+  rentalId            String   @unique
+  rental              Rental   @relation(fields: [rentalId], references: [id], onDelete: Cascade)
+}
+
+model RentalVehicle {
+  id                  String   @default(uuid()) @id
+  vehicleId           String
+  vehicle             Vehicle  @relation(fields: [vehicleId], references: [id], onDelete: Cascade)
+  rentalId            String
+  rental              Rental   @relation(fields: [rentalId], references: [id], onDelete: Cascade)
+}
+
+model Vehicle {
+  id                  String   @default(uuid()) @id
+  status              VehicleStatus   @default(FREE)
+  runnedDistance      Float    @default(0)
+  releaseDate         String
+  currentLocation     String
+  rentalVehicle       RentalVehicle[]
+  batteryVehicle      BatteryVehicle[]
+}
+
+model Battery {
+  id                  String   @default(uuid()) @id
+  chargeLevel         Float
+  status              BatteryStatus   @default(NOTINUSE)
+  condition           String?
+  type                BatteryType  @default(LithiumIon)
+  capacity            Int
+  batteryVehicle      BatteryVehicle[]
+}
+
+model BatteryVehicle {
+  id                  String   @default(uuid()) @id
+  vehicleId           String
+  vehicle             Vehicle   @relation(fields: [vehicleId], references: [id], onDelete: Cascade)
+  batteryId           String
+  battery             Battery   @relation(fields: [batteryId], references: [id], onDelete: Cascade)
+}
+
+enum Role {
+  ADMIN
+  USER
+  MODERATOR
+  TECHNICIAN
+}
+
+enum BatteryType {
+  LithiumIon
+  LithiumManganese
+  LeadAcid
+}
+
+enum BatteryStatus {
+  INUSE
+  NOTINUSE
+  BROKEN
+  CHARGING
+  REPAIR
+}
+
+enum VehicleStatus {
+  FREE
+  INUSE
+  NOTAVAILABLE
+  BROKEN
+  REPAIR
+}
+
+enum PaymentMethodTypes {
+  VISA
+  PAYPAL
+  MASTERCARD
+  OTHER
+}
