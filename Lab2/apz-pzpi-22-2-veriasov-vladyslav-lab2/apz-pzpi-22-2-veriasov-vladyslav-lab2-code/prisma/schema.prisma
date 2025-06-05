@@ -1,0 +1,195 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+// Looking for ways to speed up your queries, or scale easily with your serverless or edge functions?
+// Try Prisma Accelerate: https://pris.ly/cli/accelerate-init
+
+generator client {
+  provider = "prisma-client-js"
+//previewFeatures = ["postgresqlExtensions"]
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+//extensions = [postgis(schema: "public")]
+}
+
+model User {
+  id                  String   @default(uuid()) @id
+  email               String   @unique
+  name                String?
+  password            String 
+  phoneNumber         String? 
+  bonusAccount        String?
+  notification        Boolean  @default(false)
+  role                Role     @default(USER)
+  photo               String?
+  rental              Rental[]
+  userVerification    UserVerification?
+  issueReports        IssueReports[]
+  maintenanceRecords  MaintenanceRecords[]
+}
+
+model Rental {
+  id                  String   @default(uuid()) @id
+  isActive            Boolean  @default(true) 
+  dateRented          String
+  dateReturned        String
+  userId              String
+  startLocation       Json?
+  endLocation         Json?
+  distance            Float
+  avgSpeed            Float
+  maxSpeed            Float
+  energyConsumed      Float
+  user                User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  payment             Payment?
+  rentalVehicle       RentalVehicle[]
+}
+
+model Payment {
+  id                  String   @default(uuid()) @id
+  paymentMethod       PaymentMethodTypes  @default(MASTERCARD) 
+  amount              Decimal  @db.Decimal(10, 2)
+  date                String
+  rentalId            String   @unique
+  rental              Rental   @relation(fields: [rentalId], references: [id], onDelete: Cascade)
+}
+
+model RentalVehicle {
+  id                  String   @default(uuid()) @id
+  vehicleId           String
+  vehicle             Vehicle  @relation(fields: [vehicleId], references: [id], onDelete: Cascade)
+  rentalId            String
+  rental              Rental   @relation(fields: [rentalId], references: [id], onDelete: Cascade)
+}
+
+model Vehicle {
+  id                  String   @default(uuid()) @id
+  status              VehicleStatus   @default(FREE)
+  runnedDistance      Float    @default(0)
+  releaseDate         String
+  currentLocation     Json?
+  rentalVehicle       RentalVehicle[]
+  batteryVehicle      BatteryVehicle[]
+  issueReports        IssueReports[]
+  maintenanceRecords  MaintenanceRecords[]
+}
+
+model Battery {
+  id                  String   @default(uuid()) @id
+  chargeLevel         Float
+  status              BatteryStatus   @default(NOTINUSE)
+  condition           String?
+  type                BatteryType  @default(LithiumIon)
+  capacity            Int
+  batteryVehicle      BatteryVehicle[]
+}
+
+model BatteryVehicle {
+  id                  String   @default(uuid()) @id
+  vehicleId           String
+  vehicle             Vehicle   @relation(fields: [vehicleId], references: [id], onDelete: Cascade)
+  batteryId           String
+  battery             Battery   @relation(fields: [batteryId], references: [id], onDelete: Cascade)
+}
+
+model ParkingZones {
+  id                  String   @default(uuid()) @id
+  name                String
+  coordinates         Json     // масив координат, що формують полігон зони
+  isActive            Boolean  @default(true)
+  zoneType            ZoneType  @default(ALLOWED)   
+}
+
+model MaintenanceRecords {
+  id                  String   @default(uuid()) @id
+  vehicleId           String
+  vehicle             Vehicle  @relation(fields: [vehicleId], references: [id])
+  date                DateTime @default(now())
+  type                MaintenanceRecordsType  @default(ROUTINE)   
+  description         String
+  technicianId        String?
+  technician          User?    @relation(fields: [technicianId], references: [id])
+  cost                Decimal  @db.Decimal(10, 2)
+}
+
+model IssueReports {
+  id                 String   @default(uuid()) @id
+  userId              String
+  user                User     @relation(fields: [userId], references: [id])
+  vehicleId           String
+  vehicle             Vehicle  @relation(fields: [vehicleId], references: [id])
+  dateReported        DateTime @default(now())
+  status              IssueReportsStatus  @default(OPEN)   
+  description         String
+  priority            Int      @default(1) // 1-5, де 5 найвищий пріоритет
+}
+
+model UserVerification {
+  id                  String   @default(uuid()) @id
+  userId              String   @unique
+  user                User     @relation(fields: [userId], references: [id])
+  isVerified          Boolean  @default(false)
+  verificationDoc     String?  // URL до документу користувача
+  dateVerified        DateTime?
+  verifiedBy          String?  // ID адміністратора
+}
+
+enum Role {
+  ADMIN
+  USER
+  MODERATOR
+  TECHNICIAN
+}
+
+enum BatteryType {
+  LithiumIon
+  LithiumManganese
+  LeadAcid
+}
+
+enum BatteryStatus {
+  INUSE
+  NOTINUSE
+  BROKEN
+  CHARGING
+  REPAIR
+}
+
+enum VehicleStatus {
+  FREE
+  INUSE
+  NOTAVAILABLE
+  BROKEN
+  REPAIR
+}
+
+enum PaymentMethodTypes {
+  VISA
+  PAYPAL
+  MASTERCARD
+  OTHER
+}
+
+enum ZoneType {
+  ALLOWED
+  NO_PARKING
+  NO_RIDE
+  RESTRICTED
+}
+
+enum MaintenanceRecordsType {
+  ROUTINE
+  REPAIR
+  BATTERY_REPLACEMENT
+  OTHER
+}
+
+enum IssueReportsStatus {
+  OPEN
+  IN_PROGRESS
+  RESOLVED
+  CLOSED
+}
