@@ -15,8 +15,8 @@ import { RentalFullDto } from './dtos/rental-full.dto';
 import { CreateRentalFullDto } from './dtos/create-rental-full.dto';
 import { PaymentRentalVehicleDto } from './dtos/paymentRentalVehicle.dto';
 
-// import booleanPointInPolygon from '@turf/boolean-point-in-polygon';
-// import { point, polygon } from '@turf/helpers';
+import booleanPointInPolygon from '@turf/boolean-point-in-polygon';
+import { point, polygon } from '@turf/helpers';
 
 @Injectable()
 export class RentalService {
@@ -294,14 +294,15 @@ export class RentalService {
     //     return rental;
     // }
 
-    // async isInZone(lat: number, lng: number, geoJsonPolygon: any): Promise<boolean> {
-    //     const pt = point([lng, lat]);
-    //     const poly = polygon(geoJsonPolygon.coordinates);
-    //     return booleanPointInPolygon(pt, poly);
-    // }
+    async isInZone(lat: number, lng: number, geoJsonPolygon: any): Promise<boolean> {
+        const pt = point([lng, lat]);
+        const poly = polygon(geoJsonPolygon.coordinates);
+        return booleanPointInPolygon(pt, poly);
+    }
 
 
     async endRentalFull(payment: PaymentRentalVehicleDto): Promise<PaymentRentalVehicleDto> {
+        console.log("parkingZones");
         // Находим активную аренду
         console.log("payment", payment)
         const rentalVehicle = await this.prisma.rentalVehicle.findUnique({
@@ -343,6 +344,22 @@ export class RentalService {
         // Розрахунок витраченої енергії
         const energyConsumed = traveledDistance * energyPerKm * speedFactor;
         const amount = energyConsumed * 0.1; // Пример расчета оплаты: 0.1 доллара за 1 Wh
+
+        // const parkingZones = await this.prisma.parkingZones.findMany({
+        //     select: { coordinates: true }
+        // });
+        // const coords = parkingZones[0].coordinates;
+        
+        // const geoJsonPolygon = { type: "Polygon", coordinates: [coords] };
+        // // const pt = point([payment.endLocation.longitude, payment.endLocation.latitude]);
+        // // const poly = polygon(geoJsonPolygon.coordinates);
+        // // const isInside = booleanPointInPolygon(pt, poly);
+
+        // const isInside = this.isInZone(54.1, 12.1, geoJsonPolygon);
+        // if (!isInside) {
+        //     console.log("Vehicle is not in a valid parking zone");
+        //     throw new BadRequestException('Vehicle is not in a valid parking zone');
+        // }
 
         // Создаем запись оплаты
 
