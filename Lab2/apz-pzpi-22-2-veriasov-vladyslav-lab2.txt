@@ -49,9 +49,9 @@
 
 На першому етапі було створено ER-діаграму даних, яка визначила структуру бази даних та її взаємозв’язки. Це стало основою для подальшого створення бази даних і забезпечило логічну організацію даних. ER-діаграма представлена у додатку А.
 На другому етапі було розроблено базу даних на основі створеної ER-діаграми. Для цього використовувалася PostgreSQL як основна СУБД, а адміністрування бази виконувалося через PgAdmin4. Усі необхідні таблиці, зв’язки та обмеження було реалізовано. 
-На третьому етапі було створено діаграму структури бази даних, яка наочно демонструє зв’язки між таблицями та їх ключові атрибути. Це допомогло краще зрозуміти загальну архітектуру даних. Діаграма структури бази даних наведена у додатку Б.
-На четвертому етапі було реалізовано кодування бази даних за допомогою ORM Prisma. Це спростило взаємодію з базою даних і забезпечило типізацію даних для backend-частини. Схема бази даних наведена у додатку Б.
-На п’ятому етапі було створено UML-діаграму прецедентів для серверної частини системи. Вона визначила основні сценарії використання API клієнтами та основні функції системи. UML-діаграму наведено у додатку В.
+На третьому етапі було створено діаграму структури бази даних, яка наочно демонструє зв’язки між таблицями та їх ключові атрибути. Це допомогло краще зрозуміти загальну архітектуру даних. Діаграма структури бази даних наведена у додатку Б.1.
+На четвертому етапі було реалізовано кодування бази даних за допомогою ORM Prisma. Це спростило взаємодію з базою даних і забезпечило типізацію даних для backend-частини. Схема бази даних наведена у додатку Б.2.
+На п’ятому етапі було створено UML-діаграму прецедентів для серверної частини системи. Вона визначила основні сценарії використання API клієнтами та основні функції системи. UML-діаграму наведено у додатку Б.3.
 На шостому етапі, під час розробки API, було обрано реалізацію REST API з використанням Swagger для документування. Це забезпечило зручний інтерфейс для тестування та ознайомлення з ендпоїнтами API, дозволило автоматично генерувати документацію та значно полегшило взаємодію з клієнтами системи. Для цього було використано NestJS з мовою програмування TypeScript. Усі функції взаємодії з БД інтегрувалися через Prisma.
 На сьомому етапі було створено специфікацію розробленого REST API з використанням Swagger, яка детально описує доступні ендпоїнти, методи, параметри запитів і відповіді. Логіку взаємодії серверної частини з БД наведено у додатку Д. Логіку взаємодії серверної частини з клієнтами наведено у додатку Д. Специфікацію розробленого REST API наведено у додатку Е. 
 На восьмому етапі було проведено тестування розробленого програмного коду серверної частини системи, включно з API та функціями роботи з БД, для перевірки їхньої працездатності та відповідності вимогам.
@@ -101,18 +101,14 @@
 Виконання лабораторної роботи сприяло набуттю практичних навичок у створенні програмних систем, проєктуванні архітектури серверної частини та баз даних, а також реалізації REST API з використанням сучасних інструментів. Я навчився ефективно інтегрувати різні технології, такі як Docker для контейнеризації системи, Prisma для роботи з базами даних та Swagger для документування API.
 Ця лабораторна робота навчила мене організовувати процес розробки від планування до завершення, включаючи тестування та підготовку звітності. Крім того, я набув досвіду використання GitHub для управління кодом і публікації результатів, а також створення відеодемонстрацій, що допомогло розвинути як технічні, так і презентаційні навички.
 
-Відео на YouTube: 
-
-
+Відеозапис доповіді на YouTube: https://youtu.be/Pg0JZRWXuoc
 
  
 ДОДАТОК А 
 Відеозапис
 
 
-Відеозапис презентації результатів лабораторної роботи:  
-https://youtu.be/Pg0JZRWXuoc 
-
+Відеозапис презентації результатів лабораторної роботи: https://youtu.be/Pg0JZRWXuoc
 Хронологічний опис роботи: 
 00:00 - початок 
 00:18 – отримання усіх оренд
@@ -140,26 +136,656 @@ https://youtu.be/Pg0JZRWXuoc
  
 
 ДОДАТОК Б
-ER-діаграма
+Графічні матеріали
 
 
  
-Рисунок 1- ER-діаграма (нотація Чена) 
- 
-ДОДАТОК В
-Схема бази даних
-  
- 
-Рисунок 2- Схема бази даних
- 
-ДОДАТОК Г
-UML-діаграма прецедентів серверної частини  
+Рисунок Б.1 — ER-діаграма даних (нотація Чена) 
+Рисунок Б.2 — Структура бази даних
 
    
-
-Рисунок 3 - UML-діаграма прецедентів серверної частини
+Рисунок Б.3 — UML-діаграма прецедентів
  
-ДОДАТОК Д
+ДОДАТОК В
+Фрагменти коду серверу
+
+В.1 Математична обробка прикладних даних
+GitHub репозиторій: https://github.com/NureVeriasovVladyslav/apz-pzpi-22-2-veriasov-vladyslav/blob/main/Lab2/apz-pzpi-22-2-veriasov-vladyslav-lab2/apz-pzpi-22-2-veriasov-vladyslav-lab2-code/src/vehicle/vehicle.service.ts
+Та GitHub репозиторій: https://github.com/NureVeriasovVladyslav/apz-pzpi-22-2-veriasov-vladyslav/blob/main/Lab2/apz-pzpi-22-2-veriasov-vladyslav-lab2/apz-pzpi-22-2-veriasov-vladyslav-lab2-code/src/rental/rental.service.ts
+Лістинг 1 – Функції з елементами математичної обробки інформації з IoТ (фрагмент сервісу для таблиці Vehicle)
+async calculateTotalDistance(vehicleId: string): Promise<number> {
+
+        // Отримуємо всі оренди для вказаного транспортного засобу
+        const rentals = await this.prisma.rentalVehicle.findMany({
+            where: { vehicleId },
+            include: { rental: true },
+        });
+
+        // Обчислюємо загальну дистанцію
+        const totalDistance = rentals.reduce(
+            (total, rentalVehicle) => total + rentalVehicle.rental.distance,
+            0,
+        );
+
+        // Оновлюємо поле `runnedDistance` у транспортному засобі
+        await this.prisma.vehicle.update({
+            where: { id: vehicleId },
+            data: { runnedDistance: totalDistance },
+        });
+
+        // Повертаємо обчислену загальну дистанцію
+        return totalDistance;
+    }
+
+    async getVehicleInfo(vehicleId: string): Promise<VehicleDto> {
+        const result = await this.prisma.vehicle.findUnique({
+            where: { id: vehicleId },
+        });
+        return result;
+    }
+
+    async calculateAverageSpeed(vehicleId: string): Promise<number> {
+        const rentals = await this.prisma.rentalVehicle.findMany({
+            where: { vehicleId },
+            include: { rental: true },
+        });
+
+        const totalSpeed = rentals.reduce((sum, rentalVehicle) => sum + rentalVehicle.rental.avgSpeed, 0);
+        return rentals.length > 0 ? totalSpeed / rentals.length : 0;
+    }
+
+    async findMostEfficientVehicle(): Promise<{ vehicleId: string, efficiency: number }> {
+        const vehicles = await this.prisma.vehicle.findMany({
+            include: { rentalVehicle: { include: { rental: true } } },
+        });
+
+        const efficiencyData = vehicles.map(vehicle => {
+            const totalDistance = vehicle.rentalVehicle.reduce((sum, rv) => sum + rv.rental.distance, 0);
+            const totalEnergy = vehicle.rentalVehicle.reduce((sum, rv) => sum + rv.rental.energyConsumed, 0);
+            const efficiency = totalDistance > 0 ? totalEnergy / totalDistance : Infinity;
+            return { vehicleId: vehicle.id, efficiency };
+        });
+
+        return efficiencyData.reduce((best, current) => (current.efficiency < best.efficiency ? current : best));
+    }
+
+    async findAllVehicleWithStatus(status: VehicleStatus): Promise<VehicleDto[]> {
+        const result = await this.prisma.vehicle.findMany({
+            where: { status: status },
+        });
+        return result;
+    }
+
+Лістинг 2 – Функції з елементами математичної обробки з IoТ, а саме робота з координатами та відстанями  (фрагмент сервісу для таблиці Rental)
+
+// Метод для оновлення місцезнаходження транспортного засобу
+    async updateVehicleLocation(vehicleId: string, lat: number, lng: number) {
+        try {
+            // Переконайтемось, що транспорт існує
+            const vehicle = await this.prisma.vehicle.findUnique({
+                where: { id: vehicleId },
+            });
+
+            if (!vehicle) {
+                throw new Error('Vehicle not found');
+            }
+
+            // Оновлюємо місцезнаходження з використанням PostGIS
+            await this.prisma.$executeRaw`
+        UPDATE "Vehicle" 
+        SET currentLocation = ST_SetSRID(ST_MakePoint(${lng}, ${lat}), 4326)::geography
+        WHERE id = ${vehicleId}
+      `;
+
+            return { success: true, vehicleId, location: { lat, lng } };
+        } catch (error) {
+            console.error('Failed to update vehicle location:', error);
+            throw error;
+        }
+    }
+
+    // Метод для пошуку найближчих транспортних засобів
+    async findNearbyVehicles(lat: number, lng: number, radiusInMeters: number = 500) {
+        return this.prisma.$queryRaw`
+      SELECT 
+        v.id, 
+        v.status,
+        ST_Distance(
+          v.currentLocation::geography, 
+          ST_SetSRID(ST_MakePoint(${lng}, ${lat}), 4326)::geography
+        ) as distance
+      FROM "Vehicle" v
+      WHERE 
+        v.status = 'FREE'
+        AND ST_DWithin(
+          v.currentLocation::geography,
+          ST_SetSRID(ST_MakePoint(${lng}, ${lat}), 4326)::geography,
+          ${radiusInMeters}
+        )
+      ORDER BY distance
+      LIMIT 10
+    `;
+    }
+
+    async calculateAverageRentalDuration(): Promise<number> {
+        // Отримуємо всі завершені оренди (де dateReturned не null)
+        const rentals = await this.prisma.rental.findMany({
+            where: {
+                NOT: {
+                    dateReturned: "",
+                }
+            },
+            select: {
+                dateRented: true,
+                dateReturned: true,
+            },
+        });
+
+        if (rentals.length === 0) return 0;
+
+        // Підрахунок загального часу у годинах
+        const totalDuration = rentals.reduce((sum, rental) => {
+            const start = new Date(rental.dateRented).getTime();
+            const end = new Date(rental.dateReturned).getTime();
+            const durationHours = (end - start) / 3600000; // мілісекунди → години
+            return sum + durationHours;
+        }, 0);
+
+        // Середній час
+        return Number((totalDuration / rentals.length).toFixed(2));
+    }
+
+    async getHourlyActivityDistribution(): Promise<{ [hour: string]: number }> {
+        const rentals = await this.prisma.rental.findMany({
+            select: { dateRented: true },
+        });
+
+        // Об'єкт: { "0": 5, "1": 2, ..., "23": 7 }
+        const distribution: { [hour: string]: number } = {};
+
+        for (let i = 0; i < 24; i++) {
+            distribution[i.toString()] = 0;
+        }
+
+        for (const rental of rentals) {
+            if (!rental.dateRented) continue;
+            const hour = new Date(rental.dateRented).getHours();
+            distribution[hour.toString()]++;
+        }
+
+        return distribution;
+    }
+
+    async getDailyActivityDistribution(): Promise<{ [date: string]: number }> {
+        const rentals = await this.prisma.rental.findMany({
+            select: { dateRented: true },
+        });
+
+        // Об'єкт: { "2025-06-01": 3, "2025-06-02": 7, ... }
+        const distribution: { [date: string]: number } = {};
+
+        for (const rental of rentals) {
+            if (!rental.dateRented) continue;
+            const date = new Date(rental.dateRented).toISOString().slice(0, 10); // YYYY-MM-DD
+            if (!distribution[date]) distribution[date] = 0;
+            distribution[date]++;
+        }
+
+        return distribution;
+    }
+    async getIdleTimesForVehicle(vehicleId: string): Promise<Array<{ idleStart: string, idleEnd: string, idleHours: number }>> {
+        // 1. Отримати всі оренди для цього транспорту, відсортувати за dateRented
+        const rentalVehicles = await this.prisma.rentalVehicle.findMany({
+            where: { vehicleId },
+            include: {
+                rental: {
+                    select: {
+                        dateRented: true,
+                        dateReturned: true,
+                    }
+                }
+            },
+            orderBy: {
+                rental: {
+                    dateRented: 'asc'
+                }
+            }
+        });
+
+        // 2. Відфільтрувати тільки завершені оренди (де є dateReturned)
+        const completedRentals = rentalVehicles
+            .map(rv => rv.rental)
+            .filter(r => r.dateReturned && r.dateRented);
+
+        // 3. Розрахувати простої між орендами
+        const idleTimes: Array<{ idleStart: string, idleEnd: string, idleHours: number }> = [];
+
+        for (let i = 0; i < completedRentals.length - 1; i++) {
+            const prev = completedRentals[i];
+            const next = completedRentals[i + 1];
+
+            // Простій: від повернення попередньої до старту наступної
+            const idleStart = prev.dateReturned;
+            const idleEnd = next.dateRented;
+
+            const start = new Date(idleStart).getTime();
+            const end = new Date(idleEnd).getTime();
+            const idleHours = (end - start) / 3600000;
+
+            // Враховуємо тільки позитивний простій (можливо, дати некоректні)
+            if (idleHours >= 0) {
+                idleTimes.push({
+                    idleStart,
+                    idleEnd,
+                    idleHours: Number(idleHours.toFixed(2))
+                });
+            }
+        }
+
+        return idleTimes;
+    }
+    async getAllVehiclesIdleTimes(): Promise<Record<string, Array<{ idleStart: string, idleEnd: string, idleHours: number }>>> {
+        const vehicles = await this.prisma.vehicle.findMany({
+            select: { id: true }
+        });
+
+        const result: Record<string, Array<{ idleStart: string, idleEnd: string, idleHours: number }>> = {};
+
+        for (const vehicle of vehicles) {
+            result[vehicle.id] = await this.getIdleTimesForVehicle(vehicle.id);
+        }
+
+        return result;
+    }
+
+    /////=============================
+
+    // Функція для визначення ключа квадрата (grid cell)
+    private getGridCellKey(lat: number, lng: number, cellSize = 0.002): string {
+        const latIndex = Math.floor(lat / cellSize);
+        const lngIndex = Math.floor(lng / cellSize);
+        return `${latIndex}_${lngIndex}`;
+    }
+
+    // Найпопулярніші зони старту
+    async getPopularStartZones(cellSize = 0.002, topN = 10) {
+        console.log("zoneRevenue")
+        const rentals = await this.prisma.rental.findMany({
+            select: { startLocation: true }, // currentLocation = стартова точка
+        });
+        console.log("rentals", rentals)
+        const zoneCounts: Record<string, number> = {};
+
+        for (const rental of rentals) {
+            const loc = rental.startLocation as any;
+            if (loc && loc.latitude !== undefined && loc.longitude !== undefined) {
+                const key = this.getGridCellKey(loc.latitude, loc.longitude, cellSize);
+                zoneCounts[key] = (zoneCounts[key] || 0) + 1;
+            }
+        }
+        console.log("zoneCounts", zoneCounts)
+        // Топ-N зон
+        return Object.entries(zoneCounts)
+            .sort((a, b) => b[1] - a[1])
+            .slice(0, topN)
+            .map(([cellKey, count]) => ({
+                cellKey,
+                count,
+                // Центр квадрата для візуалізації
+                centerLat: Number(cellKey.split('_')[0]) * cellSize + cellSize / 2,
+                centerLng: Number(cellKey.split('_')[1]) * cellSize + cellSize / 2,
+            }));
+    }
+
+    // Найпопулярніші зони фінішу (якщо є endLocation)
+    async getPopularEndZones(cellSize = 0.002, topN = 10) {
+        const rentals = await this.prisma.rental.findMany({
+            select: { endLocation: true }, // Додай це поле у Rental, якщо його ще немає!
+        });
+
+        const zoneCounts: Record<string, number> = {};
+
+        for (const rental of rentals) {
+            const loc = rental.endLocation as any;
+            if (loc && loc.latitude !== undefined && loc.longitude !== undefined) {
+                const key = this.getGridCellKey(loc.latitude, loc.longitude, cellSize);
+                zoneCounts[key] = (zoneCounts[key] || 0) + 1;
+            }
+        }
+
+        return Object.entries(zoneCounts)
+            .sort((a, b) => b[1] - a[1])
+            .slice(0, topN)
+            .map(([cellKey, count]) => ({
+                cellKey,
+                count,
+                centerLat: Number(cellKey.split('_')[0]) * cellSize + cellSize / 2,
+                centerLng: Number(cellKey.split('_')[1]) * cellSize + cellSize / 2,
+            }));
+    }
+
+    // Найприбутковіші зони старту
+    async getMostProfitableStartZones(cellSize = 0.002, topN = 10) {
+        console.log("zoneRevenue")
+        // Витягуємо всі поїздки з платежами
+        const rentals = await this.prisma.rental.findMany({
+            select: {
+                id: true,
+                payment: { select: { amount: true } }, // payment має бути зв'язком rentalId → Payment
+                startLocation: true,
+            },
+        });
+
+        const zoneRevenue: Record<string, number> = {};
+
+        for (const rental of rentals) {
+            const loc = rental.startLocation as any;
+            const amount = rental.payment?.amount ? Number(rental.payment.amount) : 0;
+            if (loc && loc.latitude !== undefined && loc.longitude !== undefined) {
+                const key = this.getGridCellKey(loc.latitude, loc.longitude, cellSize);
+                zoneRevenue[key] = (zoneRevenue[key] || 0) + amount;
+            }
+        }
+        console.log("zoneRevenue", zoneRevenue)
+
+        return Object.entries(zoneRevenue)
+            .sort((a, b) => b[1] - a[1])
+            .slice(0, topN)
+            .map(([cellKey, totalRevenue]) => ({
+                cellKey,
+                totalRevenue,
+                centerLat: Number(cellKey.split('_')[0]) * cellSize + cellSize / 2,
+                centerLng: Number(cellKey.split('_')[1]) * cellSize + cellSize / 2,
+            }));
+    }
+ 
+Рисунок В.1 – Приклад 1 (для числових даних)
+ 
+Рисунок В.2 – Приклад 2 (для координат)
+
+
+В.2 Адміністрування бізнес-логіки системи
+GitHub репозиторій: https://github.com/NureVeriasovVladyslav/apz-pzpi-22-2-veriasov-vladyslav/blob/main/Lab2/apz-pzpi-22-2-veriasov-vladyslav-lab2/apz-pzpi-22-2-veriasov-vladyslav-lab2-code/src/rental/rental.controller.ts
+
+Лістинг 3 - Контроллер сторінки для управління орендами
+import { Body, Controller, Delete, Get, HttpCode, HttpException, HttpStatus, InternalServerErrorException, NotFoundException, Param, Post, Put, Query, UseGuards } from '@nestjs/common';
+import { ApiBearerAuth, ApiResponse, ApiTags } from '@nestjs/swagger';
+import { RentalService } from './rental.service';
+import { RentalDto } from './dtos/rental.dto';
+import { UpdateRentalDto } from './dtos/update-rental.dto';
+import { PaymentMethodTypes } from '@prisma/client';
+import { CreateRentalDto } from './dtos/create-rental.dto';
+
+import { RentalVehicleDto } from 'src/rental-vehicle/dtos/rental-vehicle.dto';
+import { PaymentDto } from 'src/user/dtos/userPlus.dto';
+import { RentalNotFoundException } from 'src/exceptions/user-exceptions';
+import { Roles } from 'src/auth/roles.decorator';
+import { Role } from '@prisma/client';
+import { RoleGuard } from 'src/auth/roles.guard';
+import { JwtAuthGuard } from 'src/auth/jwt-auth.guard';
+import { OwnershipGuard } from 'src/auth/ownership.guard';
+import { RentalFullDto } from './dtos/rental-full.dto';
+import { CreateRentalFullDto } from './dtos/create-rental-full.dto';
+import { PaymentRentalVehicleDto } from './dtos/paymentRentalVehicle.dto';
+
+@ApiTags('rental')
+@Controller('rental')
+export class RentalController {
+    constructor(private readonly rentalService: RentalService) { }
+
+    @Get()
+    @UseGuards(JwtAuthGuard, RoleGuard)
+    @Roles(Role.MODERATOR, Role.ADMIN)
+    @ApiBearerAuth()
+    @HttpCode(200)
+    @ApiResponse({ status: 200, description: 'List of all rentals returned successfully.' })
+    @ApiResponse({ status: 500, description: 'Internal server error.' })
+    public async findAllRental() {
+        const result = await this.rentalService.findAllRental();
+        return result;
+    }
+
+    @Post(':vehicleId')
+    @UseGuards(JwtAuthGuard, RoleGuard)
+    @Roles(Role.ADMIN, Role.USER)
+    @ApiBearerAuth()
+    @HttpCode(201)
+    @ApiResponse({ status: 201, description: 'Rental created successfully.' })
+    @ApiResponse({ status: 400, description: 'Invalid input data.' })
+    @ApiResponse({ status: 500, description: 'Internal server error.' })
+    public async createRental(@Body() rental: RentalDto) {
+        const result = await this.rentalService.createRental(rental);
+        return result;
+    }
+
+    @Put(':id')
+    @UseGuards(JwtAuthGuard, RoleGuard)
+    @Roles(Role.ADMIN, Role.USER)
+    @ApiBearerAuth()
+    @HttpCode(200)
+    @ApiResponse({ status: 200, description: 'Rental updated successfully.' })
+    @ApiResponse({ status: 404, description: 'Rental not found.' })
+    @ApiResponse({ status: 500, description: 'Internal server error.' })
+    public async updateRental(@Body() rental: UpdateRentalDto, @Param('id') id: string) {
+        const result = await this.rentalService.updateRental(rental, id);
+        return result;
+    }
+
+    @Delete(':id')
+    @UseGuards(JwtAuthGuard, RoleGuard)
+    @Roles(Role.ADMIN, Role.USER)
+    @ApiBearerAuth()
+    @HttpCode(200)
+    @ApiResponse({ status: 200, description: 'Rental deleted successfully.' })
+    @ApiResponse({ status: 404, description: 'Rental not found.' })
+    @ApiResponse({ status: 500, description: 'Internal server error.' })
+    public async deleteRental(@Param('id') id: string) {
+        const result = await this.rentalService.deleteRental(id);
+        return result;
+    }
+
+    @Get('total')
+    @UseGuards(JwtAuthGuard, RoleGuard)
+    @Roles(Role.ADMIN)
+    @ApiBearerAuth()
+    @HttpCode(200)
+    async getTotalProfit(
+        @Query('startDate') startDate: string,
+        @Query('endDate') endDate: string
+    ): Promise<{ totalProfit: number }> {
+        try {
+            const totalProfit = await this.rentalService.calculateTotalProfit(startDate, endDate);
+            return { totalProfit };
+        } catch (error) {
+            throw new Error(`Error while calculating total profit: ${error.message}`);
+        }
+    }
+
+
+    @Get(':userId/rentals-with-vehicles')
+    @UseGuards(JwtAuthGuard, RoleGuard)
+    @Roles(Role.ADMIN, Role.MODERATOR)
+    @ApiBearerAuth()
+    @ApiResponse({ status: 200, description: 'List of rentals with vehicles.' })
+    @ApiResponse({ status: 404, description: 'User not found.' })
+    public async getUserRentalsWithVehicles(@Param('userId') userId: string) {
+        const result = await this.rentalService.getUserRentalsWithVehicles(userId);
+        return result;
+    }
+
+    @Get(':id')
+    @UseGuards(JwtAuthGuard, RoleGuard)
+    @Roles(Role.ADMIN, Role.MODERATOR)
+    @ApiBearerAuth()
+    @HttpCode(200)
+    async getRentalById(@Param('id') id: string) {
+        try {
+            const rental = await this.rentalService.getRentalById(id);
+            return rental;
+        } catch (error) {
+            if (error instanceof RentalNotFoundException) {
+                throw new NotFoundException(error.message);  // HTTP 404
+            }
+            throw new InternalServerErrorException('Internal Server Error');
+        }
+    }
+
+    @Post('full/start/:data')
+    @UseGuards(JwtAuthGuard, RoleGuard)
+    @Roles(Role.ADMIN, Role.USER)
+    @ApiBearerAuth()
+    @HttpCode(201)
+    @ApiResponse({ status: 201, description: 'Rental created successfully.' })
+    @ApiResponse({ status: 400, description: 'Invalid input data.' })
+    @ApiResponse({ status: 500, description: 'Internal server error.' })
+    public async createRentalFull(@Body() rental: RentalFullDto) {
+        const result = await this.rentalService.createRentalFull(rental);
+        return result;
+    }
+
+    @Post('full/end/:payment')
+    @UseGuards(JwtAuthGuard, RoleGuard)
+    @Roles(Role.ADMIN, Role.USER)
+    @ApiBearerAuth()
+    @HttpCode(201)
+    @ApiResponse({ status: 201, description: 'Rental created successfully.' })
+    @ApiResponse({ status: 400, description: 'Invalid input data.' })
+    @ApiResponse({ status: 500, description: 'Internal server error.' })
+    public async endRentalFull(@Body() paymentRentalVehicle: PaymentRentalVehicleDto) {
+        const result = await this.rentalService.endRentalFull(paymentRentalVehicle);
+        return result;
+    }
+
+    @Get('all/rental/average-duration')
+    @UseGuards(JwtAuthGuard, RoleGuard)
+    @Roles(Role.MODERATOR, Role.ADMIN, Role.TECHNICIAN)
+    @ApiBearerAuth()
+    @HttpCode(200)
+    @ApiResponse({ status: 200, description: 'Average rental duration returned successfully.' })
+    @ApiResponse({ status: 500, description: 'Internal server error.' })
+    public async calculateAverageRentalDuration(): Promise<number> {
+        return await this.rentalService.calculateAverageRentalDuration();
+    }
+
+    @Get('activity/hourly')
+    @UseGuards(JwtAuthGuard, RoleGuard)
+    @Roles(Role.MODERATOR, Role.ADMIN, Role.TECHNICIAN)
+    @ApiBearerAuth()
+    @ApiResponse({ status: 200, description: 'Hourly activity distribution returned successfully.' })
+    @ApiResponse({ status: 500, description: 'Internal server error.' })
+    public async getHourlyActivityDistribution() {
+        return await this.rentalService.getHourlyActivityDistribution();
+    }
+
+    @Get('activity/daily')
+    @UseGuards(JwtAuthGuard, RoleGuard)
+    @Roles(Role.MODERATOR, Role.ADMIN, Role.TECHNICIAN)
+    @ApiBearerAuth()
+    @ApiResponse({ status: 200, description: 'Daily activity distribution returned successfully.' })
+    @ApiResponse({ status: 500, description: 'Internal server error.' })
+    public async getDailyActivityDistribution() {
+        return await this.rentalService.getDailyActivityDistribution();
+    }
+
+    @Get('idle-times/:vehicleId')
+    @UseGuards(JwtAuthGuard, RoleGuard)
+    @Roles(Role.MODERATOR, Role.ADMIN, Role.TECHNICIAN)
+    @ApiBearerAuth()
+    @ApiResponse({ status: 200, description: 'Idle times for vehicle returned successfully.' })
+    @ApiResponse({ status: 500, description: 'Internal server error.' })
+    public async getIdleTimesForVehicle(@Param('vehicleId') vehicleId: string) {
+        return await this.rentalService.getIdleTimesForVehicle(vehicleId);
+    }
+
+    @Get('idle-times/all')
+    @UseGuards(JwtAuthGuard, RoleGuard)
+    @Roles(Role.MODERATOR, Role.ADMIN, Role.TECHNICIAN)
+    @ApiBearerAuth()
+    @ApiResponse({ status: 200, description: 'Idle times for vehicle returned successfully.' })
+    @ApiResponse({ status: 500, description: 'Internal server error.' })
+    public async getAllVehiclesIdleTimes() {
+        return await this.rentalService.getAllVehiclesIdleTimes();
+    }
+
+    @Get('popular-start-zones/:cellSize/:topN')
+    @UseGuards(JwtAuthGuard, RoleGuard)
+    @Roles(Role.ADMIN, Role.MODERATOR, Role.TECHNICIAN)
+    @ApiBearerAuth()
+    @ApiResponse({ status: 200, description: 'Popular start zones returned.' })
+    @ApiResponse({ status: 500, description: 'Internal server error.' })
+    public async getPopularStartZones(@Param('cellSize') cellSize: number, @Param('topN') topN: number) {
+        // @Query('cellSize') cellSize?: number,
+        // @Query('topN') topN?: number
+        console.log("zoneRevenue")
+        return this.rentalService.getPopularStartZones(cellSize, topN);
+    }
+
+    @Get('popular-end-zones/:cellSize/:topN')
+    @UseGuards(JwtAuthGuard, RoleGuard)
+    @Roles(Role.ADMIN, Role.MODERATOR, Role.TECHNICIAN)
+    @ApiBearerAuth()
+    @ApiResponse({ status: 200, description: 'Popular end zones returned.' })
+    @ApiResponse({ status: 500, description: 'Internal server error.' })
+    async getPopularEndZones(@Param('cellSize') cellSize: number, @Param('topN') topN: number
+        // @Query('cellSize') cellSize?: number,
+        // @Query('topN') topN?: number
+    ) {
+        return this.rentalService.getPopularEndZones(cellSize, topN);
+    }
+
+    @Get('most-profitable-start-zones/:cellSize/:topN')
+    @UseGuards(JwtAuthGuard, RoleGuard)
+    @Roles(Role.ADMIN, Role.MODERATOR, Role.TECHNICIAN)
+    @ApiBearerAuth()
+    @ApiResponse({ status: 200, description: 'Most profitable start zones returned.' })
+    @ApiResponse({ status: 500, description: 'Internal server error.' })
+    async getMostProfitableStartZones(
+        @Param('cellSize') cellSize: number, @Param('topN') topN: number
+    ) {
+        return this.rentalService.getMostProfitableStartZones(cellSize, topN);
+    }
+}
+
+В.3 Резервне копіювання користувацьких даних
+GitHub репозиторій:  https://github.com/NureVeriasovVladyslav/apz-pzpi-22-2-veriasov-vladyslav/blob/main/Lab2/apz-pzpi-22-2-veriasov-vladyslav-lab2/apz-pzpi-22-2-veriasov-vladyslav-lab2-code/backup/backup.sh
+Лістинг 4 - Запуск сервісу автоматичного збереження бекапів бази даних
+#!/bin/bash
+
+# Змінні
+TIMESTAMP=$(date +"%Y-%m-%d_%H-%M")
+BACKUP_FILE="/backups/e-transport-$TIMESTAMP.backup"
+
+# Команда pg_dump
+pg_dump -h postgres -U postgres -d e-transport -F c -f "$BACKUP_FILE"
+
+# Вивід у лог
+echo "Backup created at $BACKUP_FILE"
+
+
+Лістинг 2 - Докерфайл
+FROM postgres:15
+
+RUN apt-get update && apt-get install -y cron
+
+# Копіюємо скрипт та план
+COPY backup.sh /usr/local/bin/backup.sh
+COPY crontab /etc/cron.d/backup-cron
+
+# Дозволи
+RUN chmod +x /usr/local/bin/backup.sh \
+    && chmod 0644 /etc/cron.d/backup-cron
+
+# Додаємо cron job
+RUN crontab /etc/cron.d/backup-cron
+
+# Створюємо директорію для бекапів
+VOLUME /backups
+RUN mkdir -p /backups
+
+# Запускаємо cron
+CMD ["cron", "-f"]
+ 
+ДОДАТОК Г
 Логіка взаємодії серверної частини з БД (приклад розробленого сервісу для таблиці Rental)
 
 import { BadRequestException, Injectable, NotFoundException } from '@nestjs/common';
@@ -933,6 +1559,10 @@ export class RentalController {
         return this.rentalService.getMostProfitableStartZones(cellSize, topN);
     }
 }
+
+
+
+
  
 ДОДАТОК Ж
 Специфікація API
