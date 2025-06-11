@@ -1,21 +1,26 @@
-Харківський університет радіоелектроніки Факультет комп'ютерних наук 
-Кафедра програмної інженерії
+ Міністерство освіти і науки України
+Харківський національний університет радіоелектроніки
+Кафедра програмної інженерії 
 
 
 
 
 
-ЗВІТ
-до лабораторної роботи №2 з дисципліни «Аналіз та рефакторинг коду»
-на тему: «РОЗРОБКА БАЗИ ДАНИХ ДЛЯ СЕРВЕРНОЇ ЧАСТИНИ ПРОГРАМНОЇ СИСТЕМИ ТА ПРИКЛАДНОГО ПРОГРАМНОГО ІНТЕРФЕЙСУ (API)» 
+Лабораторна робота №4
+з дисципліни: «Архітектура програмного забезпечення»
+на тему: «РОЗРОБКА ПРОГРАМНОЇ АРХІТЕКТУРИ, СТВОРЕННЯ ТА ВІДЛАГОДЖЕННЯ ПРОГРАМНОГО КОДУ МОБІЛЬНОГО КЛІЄНТА ПРОГРАМНОЇ СИСТЕМИ» 
 
 
 
 
-Виконав ст. гр ПЗПІ-22-2 Верясов Владислав Олексійович
 
-Перевірили
-Доцент кафедри ПІ Лещинський Володимир Олександрович 
+
+
+Виконав 
+студент групи ПЗПІ-22-2 
+Верясов Владислав Олексійович
+28 травня 2025 р.
+Перевірив
 Старший викладач кафедри ПІ
 Сокорчук Ігор Петрович 
 
@@ -23,1415 +28,385 @@
 
 
 
-
-Харків 2024
-
-МЕТА
+Харків 2025
+1 ІСТОРІЯ ЗМІН
 
 
-Метою цієї лабораторної роботи є розробити базу даних для серверної частини та прикладного програмного інтерфейсу для програмної системи для підтримки та регуляції прокату електротранспорту.
-
-ЗАВДАННЯ
-
-
-Робота передбачає створення будови програмної системи з описом її компонентів, UML діаграми прецедентів для серверної частини, ER діаграми даних, бази даних (БД) системи та її структури, функцій роботи з БД (ORM або CoRM), API (REST, GraphQL, gRPC) для клієнт-серверної взаємодії, а також специфікації API. Необхідно реалізувати програмний код API та функцій роботи з БД, перевірити його функціональність, завантажити код у GitHub репозиторій, створити відеодемонстрацію перевірки роботи серверної частини, завантажити відео на YouTube, додати хронологічний опис до відео, створити звіт, вказати у звіті посилання на відео, експортувати звіт у PDF для завантаження на dl.nure.ua та у текстовий файл (UTF-8) для запису в GitHub.
-
-ХІД РОБОТИ
+№	Дата	Версія звіту	Опис змін та виправлень
+1	28.05.2025	0.1	Створено усі розділи
 
 
-Назва: «Система для підтримки та регуляції прокату електротранспорту»
-Назва англійською мовою: «Electric Transport Rental Management System»
+2 ЗАВДАННЯ
+
+
+Метою роботи є розробити клієнтську / front-end частину програмної системи.
+
+3 ОПИС ВИКОНАНОЇ РОБОТИ
+
+
+Назва: «Система для підтримки та регуляції прокату електротранспорту».
+Назва англійською мовою: «Electric Transport Rental Management System».
 Власна назва: «E-Transport».
+У процесі виконання проєкту було розроблено комплексну систему для організації, аналітики та управління парком електросамокатів. Система складається з двох основних частин: мобільного застосунку для користувачів і адміністративної панелі для операторів. Уся інфраструктура взаємодіє із серверною частиною, що забезпечує зберігання, обробку даних та бізнес-логіку.
+Мобільний застосунок було реалізовано за допомогою Flutter, що забезпечило кросплатформенність і високу швидкість розробки. Інтеграція з картографічною системою Mapbox дала змогу відображати в реальному часі місцезнаходження самокатів, зони прокату, геозони (дозволені, заборонені для паркування, бонусні) та маршрути руху. Було реалізовано функціонал реєстрації, авторизації та верифікації користувачів. Для оренди самокатів інтегровано платіжну систему PayPal. Також користувачі мають змогу переглядати історію поїздок, стан рахунку та накопичені бонуси.
+Адміністративну панель розроблено з використанням ReactJS та фреймворку Bootstrap, що забезпечило зручний, адаптивний інтерфейс і динамічну взаємодію з сервером. Панель дозволяє моніторити парк самокатів у реальному часі, переглядати аналітику за поїздками та зонами, керувати геозонами (додавати, редагувати зони заборони паркування або руху), а також працювати зі звітами про несправності та історією обслуговування техніки. Додатково реалізовано управління верифікацією користувачів.
 
-На першому етапі було створено ER-діаграму даних, яка визначила структуру бази даних та її взаємозв’язки. Це стало основою для подальшого створення бази даних і забезпечило логічну організацію даних. ER-діаграма представлена у додатку А.
-На другому етапі було розроблено базу даних на основі створеної ER-діаграми. Для цього використовувалася PostgreSQL як основна СУБД, а адміністрування бази виконувалося через PgAdmin4. Усі необхідні таблиці, зв’язки та обмеження було реалізовано. 
-На третьому етапі було створено діаграму структури бази даних, яка наочно демонструє зв’язки між таблицями та їх ключові атрибути. Це допомогло краще зрозуміти загальну архітектуру даних. Діаграма структури бази даних наведена у додатку Б.
-На четвертому етапі було реалізовано кодування бази даних за допомогою ORM Prisma. Це спростило взаємодію з базою даних і забезпечило типізацію даних для backend-частини. Схема бази даних наведена у додатку Б.
-На п’ятому етапі було створено UML-діаграму прецедентів для серверної частини системи. Вона визначила основні сценарії використання API клієнтами та основні функції системи. UML-діаграму наведено у додатку В.
-На шостому етапі, під час розробки API, було обрано реалізацію REST API з використанням Swagger для документування. Це забезпечило зручний інтерфейс для тестування та ознайомлення з ендпоїнтами API, дозволило автоматично генерувати документацію та значно полегшило взаємодію з клієнтами системи. Для цього було використано NestJS з мовою програмування TypeScript. Усі функції взаємодії з БД інтегрувалися через Prisma.
-На сьомому етапі було створено специфікацію розробленого REST API з використанням Swagger, яка детально описує доступні ендпоїнти, методи, параметри запитів і відповіді. Логіку взаємодії серверної частини з БД наведено у додатку Д. Логіку взаємодії серверної частини з клієнтами наведено у додатку Д. Специфікацію розробленого REST API наведено у додатку Е. 
-На восьмому етапі було проведено тестування розробленого програмного коду серверної частини системи, включно з API та функціями роботи з БД, для перевірки їхньої працездатності та відповідності вимогам.
-На дев’ятому етапі весь програмний код було завантажено в GitHub репозиторій у гілку main для забезпечення централізованого зберігання та доступу до нього.
-На десятому етапі було створено відеозапис демонстрації перевірки функціональності серверної частини системи. Тривалість запису склала 7-9 хвилин, а відео завантажено на YouTube з українськими субтитрами.
-На одинадцятому етапі було створено хронологічний опис демонстрації відео (хвилина:секунда) і додано цей опис до опису відео на YouTube.
-На дванадцятому етапі було створено звіт до лабораторної роботи, у якому вказано посилання на відеозапис на YouTube та описано основні етапи виконання завдання.
-На тринадцятому етапі звіт було експортовано у формат PDF і завантажено на платформу dl.nure.ua, а також у текстовий файл з кодуванням UTF-8, який було записано до GitHub репозиторію.
+4 ВИСНОВКИ
 
 
-ВИСНОВОК
-
-
-У ході виконання роботи було створено програмну систему, яка включає серверну частину з функціональним REST API, інтегрованим з базою даних через ORM Prisma. Було виконано повний цикл розробки: від проєктування архітектури системи та створення діаграм (ER, UML) до програмної реалізації та тестування. Завдяки цьому вдалося побудувати ефективну та зрозумілу систему для взаємодії клієнтів із сервером.
-Для розробки серверної частини використовувалася мова програмування TypeScript у фреймворку NestJS. У ролі системи управління базами даних було використано PostgreSQL, адміністровану через PgAdmin4, а для ORM – Prisma, яка забезпечила зручну взаємодію з базою даних і строгий контроль типів. Документацію для REST API було реалізовано через Swagger, що зробило API доступним для тестування та інтеграції.
-Виконання лабораторної роботи сприяло набуттю практичних навичок у створенні програмних систем, проєктуванні архітектури серверної частини та баз даних, а також реалізації REST API з використанням сучасних інструментів. Я навчився ефективно інтегрувати різні технології, такі як Docker для контейнеризації системи, Prisma для роботи з базами даних та Swagger для документування API.
-Ця лабораторна робота навчила мене організовувати процес розробки від планування до завершення, включаючи тестування та підготовку звітності. Крім того, я набув досвіду використання GitHub для управління кодом і публікації результатів, а також створення відеодемонстрацій, що допомогло розвинути як технічні, так і презентаційні навички.
-
-Відео на YouTube: https://youtu.be/12y1tB1Qbo4
+             У результаті виконаної роботи було розроблено повнофункціональну систему для управління парком електросамокатів, що включає кросплатформений мобільний застосунок на  Flutter для користувачів, адміністративну панель для операторів  React, серверну частину на базі NestJS та Prisma, а також інтегровану платіжну систему PayPal і Mapbox для навігації. Уся система успішно розгорнута в Docker-середовищі, що забезпечує її стабільну роботу, масштабованість та зручність в обслуговуванні.
 
 
 
  
-ДОДАТОК А
-ER-діаграма
+ДОДАТОК А 
+Відеозапис
 
- 
-Рисунок 1- ER-діаграма (нотація Чена) 
+
+Відеозапис презентації результатів лабораторної роботи: https://youtu.be/Pg0JZRWXuoc
+Хронологічний опис роботи: 
+00:00 - початок 
+00:18 – отримання усіх оренд
+00:30 – оренда транспорту
+01:18 – перевірка статусу оренди
+01:35 – завершення оренди
+03:03 – середня тривалість оренди
+03:16 – активніть по годинам
+03:37 – активніть по дням
+04:16 – часи простою траспорта
+05:02 – популярні зони початку оренди
+05:48 – популярні зони завершення оренди
+06:06 – прибуток з зони
+06:44 – інформація та статистика щодо транспортного засобу
+07:14 – дохід з транспортного засобу
+07:30 – усі вільні самокати
+07:47 – середній час використання самокату 
+08:03 – кількість оренд на самокат
+09:02 – пройдена дистанція самоката
+09:07 – найближчі самокати до користувача
+09:50 – середня кількість поїздок на одиниці транспорту
+10:15 – використана енергія батареєю
+10:42 – ефективність викиростання батареї
+11:07 – інщі функції системи( логін, розподілення ролей, шифрування)
  
+
 ДОДАТОК Б
-Схема бази даних
-  
-   
-Рисунок 2- Схема бази даних
+Графічні матеріали
+
+
  
-ДОДАТОК В
-UML-діаграма прецедентів серверної частини  
+Рисунок Б.1 — ER-діаграма даних (нотація Чена) 
+Рисунок Б.2 — Структура бази даних
+
    
+Рисунок Б.3 — UML-діаграма прецедентів
 
-Рисунок 3 - UML-діаграма прецедентів серверної частини
- 
-ДОДАТОК Г
-Логіка взаємодії серверної частини з БД (приклад розробленого сервісу для таблиці User)
 
-import { Injectable } from '@nestjs/common';
-import { PrismaService } from 'src/prisma/prisma.service';
-import { UserDto } from './dtos/user.dto';
-import { CreateUserDto } from './dtos/create-user.dto';
-import { UpdateUserDto } from './dtos/update-user.dto';
+ 
+Рисунок Б.4 — UML-діаграма компонентів
+ 
+Рисунок Б.5 – UML діаграма діяльності ( оренда самоката)
 
-@Injectable()
-export class UserService {
-    constructor(private prisma: PrismaService) { }
-    async findAllUser(): Promise<UserDto[]> {
-        const result = await this.prisma.user.findMany();
-        return result;
-    }
-
-    async createUser(user: UserDto): Promise<CreateUserDto> {
-        const result = await this.prisma.user.create({ data: { ...user } });
-        return result;
-    }
-
-    async updateUser(user: UpdateUserDto, email: string): Promise<CreateUserDto> {
-        const result = await this.prisma.user.update({ data: { ...user }, where: { email: email } });
-        return result;
-    }
-
-    async deleteUser(id: string): Promise<CreateUserDto> {
-        const result = await this.prisma.user.delete({ where: { id: id } });
-        return result;
-    }
-
-    async getUserPlus(id: string): Promise<CreateUserDto> {
-        const result = await this.prisma.user.findUnique({
-            where: { id: id },
-            include: {
-              rental: {
-                include: {
-                  rentalVehicle: { include: { vehicle: true } },
-                  payment: true,
-                },
-              },
-            },
-         });
-        return result;
-    }
-}
-
-ДОДАТОК Д
-Логіка взаємодії серверної частини з клієнтами (приклад розробленого контролера для таблиці User)
-
-import { Body, Controller, Delete, Get, HttpCode, Param, Post, Put } from '@nestjs/common';
-import { ApiResponse, ApiTags } from '@nestjs/swagger';
-import { UserService } from './user.service';
-import { UserDto } from './dtos/user.dto';
-import { UpdateUserDto } from './dtos/update-user.dto';
-
-@ApiTags('user')
-@Controller('user')
-export class UserController {
-    constructor(private readonly userService: UserService) { }
-
-    @Get()
-    @HttpCode(200)
-    @ApiResponse({ status: 200, description: 'List of all users returned successfully.' })
-    @ApiResponse({ status: 500, description: 'Internal server error.' })
-    public async findAllUser() {
-        const result = await this.userService.findAllUser();
-        return result;
-    }
-
-    @Post()
-    @HttpCode(201)
-    @ApiResponse({ status: 201, description: 'User created successfully.' })
-    @ApiResponse({ status: 400, description: 'Invalid input data.' })
-    @ApiResponse({ status: 500, description: 'Internal server error.' })
-    public async createUser(@Body() user: UserDto) {
-        const result = await this.userService.createUser(user);
-        return result;
-    }
-
-    @Put(':id')
-    @HttpCode(200)
-    @ApiResponse({ status: 200, description: 'User updated successfully.' })
-    @ApiResponse({ status: 404, description: 'User not found.' })
-    @ApiResponse({ status: 500, description: 'Internal server error.' })
-    public async updateUser(@Body() user: UpdateUserDto, @Param('id') id: string) {
-        const result = await this.userService.updateUser(user, id);
-        return result;
-    }
-
-    @Delete(':id')
-    @HttpCode(200)
-    @ApiResponse({ status: 200, description: 'User deleted successfully.' })
-    @ApiResponse({ status: 404, description: 'User not found.' })
-    @ApiResponse({ status: 500, description: 'Internal server error.' })
-    public async deleteUser(@Param('id') id: string) {
-        const result = await this.userService.deleteUser(id);
-        return result;
-    }
-
-    @Get(':id')
-    @HttpCode(200)
-    @ApiResponse({ status: 200, description: 'User details returned successfully.' })
-    @HttpCode(404)
-    @ApiResponse({ status: 404, description: 'User not found.' })
-    @HttpCode(500)
-    @ApiResponse({ status: 500, description: 'Internal server error.' })
-    public async getUserDetails(@Param('id') userId: string): Promise<UserDto> {
-        return this.userService.getUserPlus(userId);
-    }
-}
-
+ 
+Рисунок Б.6 – UML діаграма станів (оренда самоката)
 
  
-ДОДАТОК Е
-Специфікація API
 
-{
-    "openapi": "3.0.0",
-    "paths": {
-        "/": {
-            "get": {
-                "operationId": "AppController_getHello",
-                "parameters": [],
-                "responses": {
-                    "200": {
-                        "description": ""
-                    }
-                },
-                "tags": [
-                    "App"
-                ]
-            }
-        },
-        "/user": {
-            "get": {
-                "operationId": "UserController_findAllUser",
-                "parameters": [],
-                "responses": {
-                    "200": {
-                        "description": "List of all users returned successfully."
-                    },
-                    "500": {
-                        "description": "Internal server error."
-                    }
-                },
-                "tags": [
-                    "user"
-                ]
-            },
-            "post": {
-                "operationId": "UserController_createUser",
-                "parameters": [],
-                "requestBody": {
-                    "required": true,
-                    "content": {
-                        "application/json": {
-                            "schema": {
-                                "$ref": "#/components/schemas/UserDto"
-                            }
-                        }
-                    }
-                },
-                "responses": {
-                    "201": {
-                        "description": "User created successfully."
-                    },
-                    "400": {
-                        "description": "Invalid input data."
-                    },
-                    "500": {
-                        "description": "Internal server error."
-                    }
-                },
-                "tags": [
-                    "user"
-                ]
-            }
-        },
-        "/user/{id}": {
-            "put": {
-                "operationId": "UserController_updateUser",
-                "parameters": [
-                    {
-                        "name": "id",
-                        "required": true,
-                        "in": "path",
-                        "schema": {
-                            "type": "string"
-                        }
-                    }
-                ],
-                "requestBody": {
-                    "required": true,
-                    "content": {
-                        "application/json": {
-                            "schema": {
-                                "$ref": "#/components/schemas/UpdateUserDto"
-                            }
-                        }
-                    }
-                },
-                "responses": {
-                    "200": {
-                        "description": "User updated successfully."
-                    },
-                    "404": {
-                        "description": "User not found."
-                    },
-                    "500": {
-                        "description": "Internal server error."
-                    }
-                },
-                "tags": [
-                    "user"
-                ]
-            },
-            "delete": {
-                "operationId": "UserController_deleteUser",
-                "parameters": [
-                    {
-                        "name": "id",
-                        "required": true,
-                        "in": "path",
-                        "schema": {
-                            "type": "string"
-                        }
-                    }
-                ],
-                "responses": {
-                    "200": {
-                        "description": "User deleted successfully."
-                    },
-                    "404": {
-                        "description": "User not found."
-                    },
-                    "500": {
-                        "description": "Internal server error."
-                    }
-                },
-                "tags": [
-                    "user"
-                ]
-            },
-            "get": {
-                "operationId": "UserController_getUserDetails",
-                "parameters": [
-                    {
-                        "name": "id",
-                        "required": true,
-                        "in": "path",
-                        "schema": {
-                            "type": "string"
-                        }
-                    }
-                ],
-                "responses": {
-                    "200": {
-                        "description": "User details returned successfully."
-                    },
-                    "404": {
-                        "description": "User not found."
-                    },
-                    "500": {
-                        "description": "Internal server error."
-                    }
-                },
-                "tags": [
-                    "user"
-                ]
-            }
-        },
-        "/rental": {
-            "get": {
-                "operationId": "RentalController_findAllRental",
-                "parameters": [],
-                "responses": {
-                    "200": {
-                        "description": "List of all rentals returned successfully."
-                    },
-                    "500": {
-                        "description": "Internal server error."
-                    }
-                },
-                "tags": [
-                    "rental"
-                ]
-            },
-            "post": {
-                "operationId": "RentalController_createRental",
-                "parameters": [],
-                "requestBody": {
-                    "required": true,
-                    "content": {
-                        "application/json": {
-                            "schema": {
-                                "$ref": "#/components/schemas/RentalDto"
-                            }
-                        }
-                    }
-                },
-                "responses": {
-                    "201": {
-                        "description": "Rental created successfully."
-                    },
-                    "400": {
-                        "description": "Invalid input data."
-                    },
-                    "500": {
-                        "description": "Internal server error."
-                    }
-                },
-                "tags": [
-                    "rental"
-                ]
-            }
-        },
-        "/rental/{id}": {
-            "put": {
-                "operationId": "RentalController_updateRental",
-                "parameters": [
-                    {
-                        "name": "id",
-                        "required": true,
-                        "in": "path",
-                        "schema": {
-                            "type": "string"
-                        }
-                    }
-                ],
-                "requestBody": {
-                    "required": true,
-                    "content": {
-                        "application/json": {
-                            "schema": {
-                                "$ref": "#/components/schemas/UpdateRentalDto"
-                            }
-                        }
-                    }
-                },
-                "responses": {
-                    "200": {
-                        "description": "Rental updated successfully."
-                    },
-                    "404": {
-                        "description": "Rental not found."
-                    },
-                    "500": {
-                        "description": "Internal server error."
-                    }
-                },
-                "tags": [
-                    "rental"
-                ]
-            },
-            "delete": {
-                "operationId": "RentalController_deleteRental",
-                "parameters": [
-                    {
-                        "name": "id",
-                        "required": true,
-                        "in": "path",
-                        "schema": {
-                            "type": "string"
-                        }
-                    }
-                ],
-                "responses": {
-                    "200": {
-                        "description": "Rental deleted successfully."
-                    },
-                    "404": {
-                        "description": "Rental not found."
-                    },
-                    "500": {
-                        "description": "Internal server error."
-                    }
-                },
-                "tags": [
-                    "rental"
-                ]
-            }
-        },
-        "/payment": {
-            "get": {
-                "operationId": "PaymentController_findAllPayment",
-                "parameters": [],
-                "responses": {
-                    "200": {
-                        "description": "List of all payments returned successfully."
-                    },
-                    "500": {
-                        "description": "Internal server error."
-                    }
-                },
-                "tags": [
-                    "payment"
-                ]
-            },
-            "post": {
-                "operationId": "PaymentController_createPayment",
-                "parameters": [],
-                "requestBody": {
-                    "required": true,
-                    "content": {
-                        "application/json": {
-                            "schema": {
-                                "$ref": "#/components/schemas/PaymentDto"
-                            }
-                        }
-                    }
-                },
-                "responses": {
-                    "201": {
-                        "description": "Payment created successfully."
-                    },
-                    "400": {
-                        "description": "Invalid input data."
-                    },
-                    "500": {
-                        "description": "Internal server error."
-                    }
-                },
-                "tags": [
-                    "payment"
-                ]
-            }
-        },
-        "/payment/{id}": {
-            "put": {
-                "operationId": "PaymentController_updatePayment",
-                "parameters": [
-                    {
-                        "name": "id",
-                        "required": true,
-                        "in": "path",
-                        "schema": {
-                            "type": "string"
-                        }
-                    }
-                ],
-                "requestBody": {
-                    "required": true,
-                    "content": {
-                        "application/json": {
-                            "schema": {
-                                "$ref": "#/components/schemas/UpdatePaymentDto"
-                            }
-                        }
-                    }
-                },
-                "responses": {
-                    "200": {
-                        "description": "Payment updated successfully."
-                    },
-                    "404": {
-                        "description": "Payment not found."
-                    },
-                    "500": {
-                        "description": "Internal server error."
-                    }
-                },
-                "tags": [
-                    "payment"
-                ]
-            },
-            "delete": {
-                "operationId": "PaymentController_deletePayment",
-                "parameters": [
-                    {
-                        "name": "id",
-                        "required": true,
-                        "in": "path",
-                        "schema": {
-                            "type": "string"
-                        }
-                    }
-                ],
-                "responses": {
-                    "200": {
-                        "description": "Payment deleted successfully."
-                    },
-                    "404": {
-                        "description": "Payment not found."
-                    },
-                    "500": {
-                        "description": "Internal server error."
-                    }
-                },
-                "tags": [
-                    "payment"
-                ]
-            }
-        },
-        "/vehicle": {
-            "get": {
-                "operationId": "VehicleController_findAllVehicle",
-                "parameters": [],
-                "responses": {
-                    "200": {
-                        "description": "List of all vehicles returned successfully."
-                    },
-                    "500": {
-                        "description": "Internal server error."
-                    }
-                },
-                "tags": [
-                    "vehicle"
-                ]
-            },
-            "post": {
-                "operationId": "VehicleController_createVehicle",
-                "parameters": [],
-                "requestBody": {
-                    "required": true,
-                    "content": {
-                        "application/json": {
-                            "schema": {
-                                "$ref": "#/components/schemas/VehicleDto"
-                            }
-                        }
-                    }
-                },
-                "responses": {
-                    "201": {
-                        "description": "Vehicle created successfully."
-                    },
-                    "400": {
-                        "description": "Invalid input data."
-                    },
-                    "500": {
-                        "description": "Internal server error."
-                    }
-                },
-                "tags": [
-                    "vehicle"
-                ]
-            }
-        },
-        "/vehicle/{id}": {
-            "put": {
-                "operationId": "VehicleController_updateVehicle",
-                "parameters": [
-                    {
-                        "name": "id",
-                        "required": true,
-                        "in": "path",
-                        "schema": {
-                            "type": "string"
-                        }
-                    }
-                ],
-                "requestBody": {
-                    "required": true,
-                    "content": {
-                        "application/json": {
-                            "schema": {
-                                "$ref": "#/components/schemas/UpdateVehicleDto"
-                            }
-                        }
-                    }
-                },
-                "responses": {
-                    "200": {
-                        "description": "Vehicle updated successfully."
-                    },
-                    "404": {
-                        "description": "Vehicle not found."
-                    },
-                    "500": {
-                        "description": "Internal server error."
-                    }
-                },
-                "tags": [
-                    "vehicle"
-                ]
-            },
-            "delete": {
-                "operationId": "VehicleController_deleteVehicle",
-                "parameters": [
-                    {
-                        "name": "id",
-                        "required": true,
-                        "in": "path",
-                        "schema": {
-                            "type": "string"
-                        }
-                    }
-                ],
-                "responses": {
-                    "200": {
-                        "description": "Vehicle deleted successfully."
-                    },
-                    "404": {
-                        "description": "Vehicle not found."
-                    },
-                    "500": {
-                        "description": "Internal server error."
-                    }
-                },
-                "tags": [
-                    "vehicle"
-                ]
-            }
-        },
-        "/battery": {
-            "get": {
-                "operationId": "BatteryController_findAllBattery",
-                "parameters": [],
-                "responses": {
-                    "200": {
-                        "description": "List of all batteries returned successfully."
-                    },
-                    "500": {
-                        "description": "Internal server error."
-                    }
-                },
-                "tags": [
-                    "battery"
-                ]
-            },
-            "post": {
-                "operationId": "BatteryController_createBattery",
-                "parameters": [],
-                "requestBody": {
-                    "required": true,
-                    "content": {
-                        "application/json": {
-                            "schema": {
-                                "$ref": "#/components/schemas/BatteryDto"
-                            }
-                        }
-                    }
-                },
-                "responses": {
-                    "201": {
-                        "description": "Battery created successfully."
-                    },
-                    "400": {
-                        "description": "Invalid input data."
-                    },
-                    "500": {
-                        "description": "Internal server error."
-                    }
-                },
-                "tags": [
-                    "battery"
-                ]
-            }
-        },
-        "/battery/{id}": {
-            "put": {
-                "operationId": "BatteryController_updateBattery",
-                "parameters": [
-                    {
-                        "name": "id",
-                        "required": true,
-                        "in": "path",
-                        "schema": {
-                            "type": "string"
-                        }
-                    }
-                ],
-                "requestBody": {
-                    "required": true,
-                    "content": {
-                        "application/json": {
-                            "schema": {
-                                "$ref": "#/components/schemas/UpdateBatteryDto"
-                            }
-                        }
-                    }
-                },
-                "responses": {
-                    "200": {
-                        "description": "Battery updated successfully."
-                    },
-                    "404": {
-                        "description": "Battery not found."
-                    },
-                    "500": {
-                        "description": "Internal server error."
-                    }
-                },
-                "tags": [
-                    "battery"
-                ]
-            },
-            "delete": {
-                "operationId": "BatteryController_deleteBattery",
-                "parameters": [
-                    {
-                        "name": "id",
-                        "required": true,
-                        "in": "path",
-                        "schema": {
-                            "type": "string"
-                        }
-                    }
-                ],
-                "responses": {
-                    "200": {
-                        "description": "Battery deleted successfully."
-                    },
-                    "404": {
-                        "description": "Battery not found."
-                    },
-                    "500": {
-                        "description": "Internal server error."
-                    }
-                },
-                "tags": [
-                    "battery"
-                ]
-            }
-        },
-        "/rental-vehicle": {
-            "get": {
-                "operationId": "RentalVehicleController_findAllRentalVehicle",
-                "parameters": [],
-                "responses": {
-                    "200": {
-                        "description": "List of all rental vehicles returned successfully."
-                    },
-                    "500": {
-                        "description": "Internal server error."
-                    }
-                },
-                "tags": [
-                    "rental-vehicle"
-                ]
-            },
-            "post": {
-                "operationId": "RentalVehicleController_createRentalVehicle",
-                "parameters": [],
-                "requestBody": {
-                    "required": true,
-                    "content": {
-                        "application/json": {
-                            "schema": {
-                                "$ref": "#/components/schemas/RentalVehicleDto"
-                            }
-                        }
-                    }
-                },
-                "responses": {
-                    "201": {
-                        "description": "Rental vehicle created successfully."
-                    },
-                    "400": {
-                        "description": "Invalid input data."
-                    },
-                    "500": {
-                        "description": "Internal server error."
-                    }
-                },
-                "tags": [
-                    "rental-vehicle"
-                ]
-            }
-        },
-        "/rental-vehicle/{id}": {
-            "put": {
-                "operationId": "RentalVehicleController_updateRentalVehicle",
-                "parameters": [
-                    {
-                        "name": "id",
-                        "required": true,
-                        "in": "path",
-                        "schema": {
-                            "type": "string"
-                        }
-                    }
-                ],
-                "requestBody": {
-                    "required": true,
-                    "content": {
-                        "application/json": {
-                            "schema": {
-                                "$ref": "#/components/schemas/UpdateRentalVehicleDto"
-                            }
-                        }
-                    }
-                },
-                "responses": {
-                    "200": {
-                        "description": "Rental vehicle updated successfully."
-                    },
-                    "404": {
-                        "description": "Rental vehicle not found."
-                    },
-                    "500": {
-                        "description": "Internal server error."
-                    }
-                },
-                "tags": [
-                    "rental-vehicle"
-                ]
-            },
-            "delete": {
-                "operationId": "RentalVehicleController_deleteRentalVehicle",
-                "parameters": [
-                    {
-                        "name": "id",
-                        "required": true,
-                        "in": "path",
-                        "schema": {
-                            "type": "string"
-                        }
-                    }
-                ],
-                "responses": {
-                    "200": {
-                        "description": "Rental vehicle deleted successfully."
-                    },
-                    "404": {
-                        "description": "Rental vehicle not found."
-                    },
-                    "500": {
-                        "description": "Internal server error."
-                    }
-                },
-                "tags": [
-                    "rental-vehicle"
-                ]
-            }
-        },
-        "/battery-vehicle": {
-            "get": {
-                "operationId": "BatteryVehicleController_findAllBatteryVehicle",
-                "parameters": [],
-                "responses": {
-                    "200": {
-                        "description": "List of all battery vehicles returned successfully."
-                    },
-                    "500": {
-                        "description": "Internal server error."
-                    }
-                },
-                "tags": [
-                    "battery-vehicle"
-                ]
-            },
-            "post": {
-                "operationId": "BatteryVehicleController_createBatteryVehicle",
-                "parameters": [],
-                "requestBody": {
-                    "required": true,
-                    "content": {
-                        "application/json": {
-                            "schema": {
-                                "$ref": "#/components/schemas/BatteryVehicleDto"
-                            }
-                        }
-                    }
-                },
-                "responses": {
-                    "201": {
-                        "description": "Battery vehicle created successfully."
-                    },
-                    "400": {
-                        "description": "Invalid input data."
-                    },
-                    "500": {
-                        "description": "Internal server error."
-                    }
-                },
-                "tags": [
-                    "battery-vehicle"
-                ]
-            }
-        },
-        "/battery-vehicle/{id}": {
-            "put": {
-                "operationId": "BatteryVehicleController_updateBatteryVehicle",
-                "parameters": [
-                    {
-                        "name": "id",
-                        "required": true,
-                        "in": "path",
-                        "schema": {
-                            "type": "string"
-                        }
-                    }
-                ],
-                "requestBody": {
-                    "required": true,
-                    "content": {
-                        "application/json": {
-                            "schema": {
-                                "$ref": "#/components/schemas/UpdateBatteryVehicleDto"
-                            }
-                        }
-                    }
-                },
-                "responses": {
-                    "200": {
-                        "description": "Battery vehicle updated successfully."
-                    },
-                    "404": {
-                        "description": "Battery vehicle not found."
-                    },
-                    "500": {
-                        "description": "Internal server error."
-                    }
-                },
-                "tags": [
-                    "battery-vehicle"
-                ]
-            },
-            "delete": {
-                "operationId": "BatteryVehicleController_deleteBatteryVehicle",
-                "parameters": [
-                    {
-                        "name": "id",
-                        "required": true,
-                        "in": "path",
-                        "schema": {
-                            "type": "string"
-                        }
-                    }
-                ],
-                "responses": {
-                    "200": {
-                        "description": "Battery vehicle deleted successfully."
-                    },
-                    "404": {
-                        "description": "Battery vehicle not found."
-                    },
-                    "500": {
-                        "description": "Internal server error."
-                    }
-                },
-                "tags": [
-                    "battery-vehicle"
-                ]
-            }
-        }
-    },
-    "info": {
-        "title": "e-transport",
-        "description": "The e-transport API description",
-        "version": "1.0",
-        "contact": {}
-    },
-    "tags": [],
-    "servers": [],
-    "components": {
-        "schemas": {
-            "UserDto": {
-                "type": "object",
-                "properties": {
-                    "email": {
-                        "type": "string"
-                    },
-                    "name": {
-                        "type": "string"
-                    },
-                    "password": {
-                        "type": "string"
-                    },
-                    "phoneNumber": {
-                        "type": "string"
-                    },
-                    "bonusAccount": {
-                        "type": "string"
-                    },
-                    "notification": {
-                        "type": "boolean"
-                    },
-                    "photo": {
-                        "type": "string"
-                    },
-                    "role": {
-                        "type": "string",
-                        "enum": [
-                            "ADMIN",
-                            "USER",
-                            "MODERATOR",
-                            "TECHNICIAN"
-                        ]
-                    }
-                },
-                "required": [
-                    "email",
-                    "name",
-                    "password",
-                    "phoneNumber",
-                    "bonusAccount",
-                    "notification",
-                    "photo",
-                    "role"
-                ]
-            },
-            "UpdateUserDto": {
-                "type": "object",
-                "properties": {
-                    "email": {
-                        "type": "string"
-                    },
-                    "name": {
-                        "type": "string"
-                    },
-                    "password": {
-                        "type": "string"
-                    },
-                    "phoneNumber": {
-                        "type": "string"
-                    },
-                    "bonusAccount": {
-                        "type": "string"
-                    },
-                    "photo": {
-                        "type": "string"
-                    },
-                    "notification": {
-                        "type": "boolean"
-                    },
-                    "role": {
-                        "type": "string",
-                        "enum": [
-                            "ADMIN",
-                            "USER",
-                            "MODERATOR",
-                            "TECHNICIAN"
-                        ]
-                    }
-                },
-                "required": [
-                    "role"
-                ]
-            },
-            "RentalDto": {
-                "type": "object",
-                "properties": {
-                    "isActive": {
-                        "type": "boolean"
-                    },
-                    "dateRented": {
-                        "type": "string"
-                    },
-                    "dateReturned": {
-                        "type": "string"
-                    },
-                    "userId": {
-                        "type": "string"
-                    },
-                    "distance": {
-                        "type": "number"
-                    },
-                    "avgSpeed": {
-                        "type": "number"
-                    },
-                    "maxSpeed": {
-                        "type": "number"
-                    },
-                    "energyConsumed": {
-                        "type": "number"
-                    }
-                },
-                "required": [
-                    "isActive",
-                    "dateRented",
-                    "dateReturned",
-                    "userId",
-                    "distance",
-                    "avgSpeed",
-                    "maxSpeed",
-                    "energyConsumed"
-                ]
-            },
-            "UpdateRentalDto": {
-                "type": "object",
-                "properties": {
-                    "isActive": {
-                        "type": "boolean"
-                    },
-                    "dateRented": {
-                        "type": "string"
-                    },
-                    "dateReturned": {
-                        "type": "string"
-                    },
-                    "userId": {
-                        "type": "string"
-                    },
-                    "distance": {
-                        "type": "number"
-                    },
-                    "avgSpeed": {
-                        "type": "number"
-                    },
-                    "maxSpeed": {
-                        "type": "number"
-                    },
-                    "energyConsumed": {
-                        "type": "number"
-                    }
-                }
-            },
-            "PaymentDto": {
-                "type": "object",
-                "properties": {
-                    "paymentMethod": {
-                        "type": "string",
-                        "enum": [
-                            "VISA",
-                            "PAYPAL",
-                            "MASTERCARD",
-                            "OTHER"
-                        ]
-                    },
-                    "amount": {
-                        "type": "string"
-                    },
-                    "date": {
-                        "type": "string"
-                    },
-                    "rentalId": {
-                        "type": "string"
-                    }
-                },
-                "required": [
-                    "paymentMethod",
-                    "amount",
-                    "date",
-                    "rentalId"
-                ]
-            },
-            "UpdatePaymentDto": {
-                "type": "object",
-                "properties": {
-                    "paymentMethod": {
-                        "type": "string",
-                        "enum": [
-                            "VISA",
-                            "PAYPAL",
-                            "MASTERCARD",
-                            "OTHER"
-                        ]
-                    },
-                    "name": {
-                        "type": "string"
-                    },
-                    "amount": {
-                        "type": "string"
-                    },
-                    "date": {
-                        "type": "string"
-                    },
-                    "rentalId": {
-                        "type": "string"
-                    }
-                },
-                "required": [
-                    "paymentMethod"
-                ]
-            },
-            "VehicleDto": {
-                "type": "object",
-                "properties": {
-                    "status": {
-                        "type": "string",
-                        "enum": [
-                            "FREE",
-                            "INUSE",
-                            "NOTAVAILABLE",
-                            "BROKEN",
-                            "REPAIR"
-                        ]
-                    },
-                    "runnedDistance": {
-                        "type": "number"
-                    },
-                    "releaseDate": {
-                        "type": "string"
-                    },
-                    "currentLocation": {
-                        "type": "string"
-                    }
-                },
-                "required": [
-                    "status",
-                    "runnedDistance",
-                    "releaseDate",
-                    "currentLocation"
-                ]
-            },
-            "UpdateVehicleDto": {
-                "type": "object",
-                "properties": {
-                    "status": {
-                        "type": "string",
-                        "enum": [
-                            "FREE",
-                            "INUSE",
-                            "NOTAVAILABLE",
-                            "BROKEN",
-                            "REPAIR"
-                        ]
-                    },
-                    "runnedDistance": {
-                        "type": "number"
-                    },
-                    "releaseDate": {
-                        "type": "string"
-                    },
-                    "currentLocation": {
-                        "type": "string"
-                    }
-                },
-                "required": [
-                    "status"
-                ]
-            },
-            "BatteryDto": {
-                "type": "object",
-                "properties": {
-                    "status": {
-                        "type": "string",
-                        "enum": [
-                            "INUSE",
-                            "NOTINUSE",
-                            "BROKEN",
-                            "CHARGING",
-                            "REPAIR"
-                        ]
-                    },
-                    "chargeLevel": {
-                        "type": "number"
-                    },
-                    "condition": {
-                        "type": "string"
-                    },
-                    "type": {
-                        "type": "string",
-                        "enum": [
-                            "LithiumIon",
-                            "LithiumManganese",
-                            "LeadAcid"
-                        ]
-                    },
-                    "capacity": {
-                        "type": "number"
-                    }
-                },
-                "required": [
-                    "status",
-                    "chargeLevel",
-                    "condition",
-                    "type",
-                    "capacity"
-                ]
-            },
-            "UpdateBatteryDto": {
-                "type": "object",
-                "properties": {
-                    "chargeLevel": {
-                        "type": "number"
-                    },
-                    "status": {
-                        "type": "string",
-                        "enum": [
-                            "INUSE",
-                            "NOTINUSE",
-                            "BROKEN",
-                            "CHARGING",
-                            "REPAIR"
-                        ]
-                    },
-                    "condition": {
-                        "type": "string"
-                    },
-                    "type": {
-                        "type": "string",
-                        "enum": [
-                            "LithiumIon",
-                            "LithiumManganese",
-                            "LeadAcid"
-                        ]
-                    },
-                    "capacity": {
-                        "type": "number"
-                    }
-                },
-                "required": [
-                    "status",
-                    "type"
-                ]
-            },
-            "RentalVehicleDto": {
-                "type": "object",
-                "properties": {
-                    "vehicleId": {
-                        "type": "string"
-                    },
-                    "rentalId": {
-                        "type": "string"
-                    }
-                },
-                "required": [
-                    "vehicleId",
-                    "rentalId"
-                ]
-            },
-            "UpdateRentalVehicleDto": {
-                "type": "object",
-                "properties": {
-                    "vehicleId": {
-                        "type": "string"
-                    },
-                    "rentalId": {
-                        "type": "string"
-                    }
-                }
-            },
-            "BatteryVehicleDto": {
-                "type": "object",
-                "properties": {
-                    "vehicleId": {
-                        "type": "string"
-                    },
-                    "batteryId": {
-                        "type": "string"
-                    }
-                },
-                "required": [
-                    "vehicleId",
-                    "batteryId"
-                ]
-            },
-            "UpdateBatteryVehicleDto": {
-                "type": "object",
-                "properties": {
-                    "vehicleId": {
-                        "type": "string"
-                    },
-                    "batteryId": {
-                        "type": "string"
-                    }
-                }
-            }
-        }
+ДОДАТОК В
+Фрагменти коду серверу
+
+В.1 Математична обробка прикладних даних
+GitHub репозиторій: https://github.com/NureVeriasovVladyslav/apz-pzpi-22-2-veriasov-vladyslav/blob/main/Lab4/apz-pzpi-22-2-veriasov-vladyslav-lab4/etr_app/lib/main.dart
+Лістинг 1 – Функції що отримують з серверу елементами математичної обробки інформації
+/// -------- маркери самокатів --------
+  Future<void> _drawScooterMarkers(List<Scooter> list) async {
+    _scooterManager ??=
+        await _map!.annotations.createPointAnnotationManager();
+
+    await _scooterManager!.deleteAll();
+
+    final icon = await _loadBytes('assets/images/scooter.png');
+    for (final s in list) {
+      await _scooterManager!.create(
+        mapbox.PointAnnotationOptions(
+          geometry: mapbox.Point(
+              coordinates: mapbox.Position(s.lng, s.lat)),
+          image: icon,
+          iconSize: 0.12,
+          // textField: s.battery != null ? '${s.battery}%' : null,
+          textSize: 12,
+          textOffset: [0.0, 1.5],
+        ),
+      );
     }
+  }
+
+  Future<Uint8List> _loadBytes(String path) async {
+    final bytes = await rootBundle.load(path);
+    return bytes.buffer.asUint8List();
+  }
+
+  /// -------- UI --------
+  @override
+  Widget build(BuildContext context) => Scaffold(
+        body: mapbox.MapWidget(
+          key: const ValueKey('map'),
+          cameraOptions: mapbox.CameraOptions(
+            center: mapbox.Point(
+                coordinates: mapbox.Position(0.0, 0.0)), // стартова точка
+            zoom: 1,
+          ),
+          onMapCreated: (controller) {
+            _map = controller;
+            _initLocationAndCamera();
+            _fetchAndShowScooters();
+          },
+        ),
+      );
 }
+  
+Рисунок В.2 – Отримання координат та місцезнаходження
+
+В.2 Адміністрування бізнес-логіки системи
+GitHub репозиторій: https://github.com/NureVeriasovVladyslav/apz-pzpi-22-2-veriasov-vladyslav/blob/main/Lab4/apz-pzpi-22-2-veriasov-vladyslav-lab4/etr_app/lib/main.dart
+Лістинг 2 – Прорисовка карти та інших сторінок
+import 'dart:async';
+import 'dart:convert';
+import 'dart:typed_data';
+
+import 'package:flutter/material.dart';
+import 'package:flutter/services.dart' show rootBundle;
+import 'package:http/http.dart' as http;
+import 'package:geolocator/geolocator.dart' as geo;
+import 'package:mapbox_maps_flutter/mapbox_maps_flutter.dart' as mapbox;
+
+void main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+
+  // Mapbox access-token передається через --dart-define
+  const ACCESS_TOKEN = String.fromEnvironment('ACCESS_TOKEN');
+  mapbox.MapboxOptions.setAccessToken(ACCESS_TOKEN);
+
+  runApp(const MyApp());
+}
+
+class MyApp extends StatelessWidget {
+  const MyApp({super.key});
+
+  @override
+  Widget build(BuildContext context) => const MaterialApp(
+        debugShowCheckedModeBanner: false,
+        home: MainNavigation(),
+      );
+}
+
+/// ---------------------------
+///      BOTTOM NAVIGATION
+/// ---------------------------
+class MainNavigation extends StatefulWidget {
+  const MainNavigation({super.key});
+  @override
+  State<MainNavigation> createState() => _MainNavigationState();
+}
+
+class _MainNavigationState extends State<MainNavigation> {
+  int _current = 0;
+
+  final pages = const [
+    MapPage(),
+    RidesPage(),
+    WalletPage(),
+    ProfilePage(),
+  ];
+
+  @override
+  Widget build(BuildContext context) => Scaffold(
+        body: pages[_current],
+        bottomNavigationBar: BottomNavigationBar(
+          type: BottomNavigationBarType.fixed,
+          currentIndex: _current,
+          onTap: (i) => setState(() => _current = i),
+          items: const [
+            BottomNavigationBarItem(icon: Icon(Icons.map), label: 'Map'),
+            BottomNavigationBarItem(icon: Icon(Icons.history), label: 'Trips'),
+            BottomNavigationBarItem(
+                icon: Icon(Icons.account_balance_wallet), label: 'Wallet'),
+            BottomNavigationBarItem(icon: Icon(Icons.person), label: 'Profile'),
+          ],
+        ),
+      );
+}
+
+/// ---------------------------
+///            MAP
+/// ---------------------------
+class MapPage extends StatefulWidget {
+  const MapPage({super.key});
+  @override
+  State<MapPage> createState() => _MapPageState();
+}
+
+class _MapPageState extends State<MapPage> {
+  mapbox.MapboxMap? _map;
+
+  mapbox.PointAnnotationManager? _scooterManager; // усі самокати
+  mapbox.PointAnnotationManager? _userManager;    // тільки ваш маркер
+
+  Timer? _ticker;
+
+  @override
+  void initState() {
+    super.initState();
+    // опитуємо бекенд кожні 15 с
+    _ticker = Timer.periodic(const Duration(seconds: 15), (_) {
+      _fetchAndShowScooters();
+    });
+  }
+
+  @override
+  void dispose() {
+    _ticker?.cancel();
+    super.dispose();
+  }
+
+  /// -------- геолокація + маркер користувача --------
+  Future<void> _initLocationAndCamera() async {
+    // запит дозволу
+    final perm = await geo.Geolocator.requestPermission();
+    if (perm == geo.LocationPermission.denied ||
+        perm == geo.LocationPermission.deniedForever) {
+      return;
+    }
+
+    // координати
+    final pos = await geo.Geolocator.getCurrentPosition();
+    final point =
+        mapbox.Point(coordinates: mapbox.Position(pos.longitude, pos.latitude));
+
+    // центруємо карту
+    await _map?.flyTo(
+      mapbox.CameraOptions(center: point, zoom: 2),
+      mapbox.MapAnimationOptions(duration: 1500),
+    );
+
+    // показуємо маркер
+    _userManager ??=
+        await _map!.annotations.createPointAnnotationManager();
+
+    await _userManager!.deleteAll(); // перезапис
+
+    final icon = await _loadBytes('assets/images/pointer.png');
+    await _userManager!.create(
+      mapbox.PointAnnotationOptions(
+        geometry: point,
+        image: icon,
+        iconSize: 0.15,
+      ),
+    );
+  }
+  Future<String?> getToken() async {
+  try {
+    const base = String.fromEnvironment('BACKEND_URL',
+      defaultValue: 'http://10.0.2.2:3000');
+    final response = await http.post(
+      Uri.parse('$base/auth/login'),
+      headers: {'Content-Type': 'application/json'},
+      body: json.encode({
+        'email': 'admin@gmail.com',
+        'password': 'admin@gmail.com'
+      }),
+    );
+    
+    if (response.statusCode == 200) {
+      final data = json.decode(response.body);
+      return data['token'];
+    }
+  } catch (e) {
+    debugPrint('Auth error: $e');
+  }
+  return null;
+}
+
+  /// -------- запит самокатів --------
+  Future<void> _fetchAndShowScooters() async {
+  if (_map == null) return;
+
+  const base = String.fromEnvironment('BACKEND_URL',
+      defaultValue: 'http://10.0.2.2:3000');
+  final url = Uri.parse('$base/vehicle');
+  
+  // final token = await getToken(); // якщо це async
+
+  const token =
+      'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImFkbWluQGdtYWlsLmNvbSIsInJvbGUiOiJBRE1JTiIsImlhdCI6MTc0OTU3MDc4NiwiZXhwIjoxNzQ5NTc0Mzg2fQ.j5rcyeWxgtxFARpurBc44-JcbCuUDnPJuvg00AWjmk0';
+
+  try {
+    final res = await http.get(
+      url,
+      headers: {'Authorization': 'Bearer $token'},
+    );
+
+    if (res.statusCode != 200) {
+      debugPrint('Vehicle HTTP ${res.statusCode}: ${res.body}');
+      return;
+    }
+
+    final List<dynamic> raw = jsonDecode(res.body) as List<dynamic>;
+    
+    // Додай логування для розуміння структури даних
+    debugPrint('First vehicle: ${raw.isNotEmpty ? json.encode(raw.first) : "none"}');
+    
+    final List<Scooter> scooters = raw
+        .where((e) => e['currentLocation'] != null) // Фільтруємо тільки з координатами
+        .map((e) => Scooter.fromJson(e as Map<String, dynamic>))
+        .toList(growable: false);
+    
+    debugPrint('Loaded ${scooters.length} scooters');
+    
+    await _drawScooterMarkers(scooters);
+  } catch (e, stackTrace) {
+    debugPrint('Vehicle request error: $e');
+    debugPrint('Stack trace: $stackTrace');
+  }
+}
+
+
+В.3 Резервне копіювання користувацьких даних
+GitHub репозиторій:  https://github.com/NureVeriasovVladyslav/apz-pzpi-22-2-veriasov-vladyslav/blob/main/Lab2/apz-pzpi-22-2-veriasov-vladyslav-lab2/apz-pzpi-22-2-veriasov-vladyslav-lab2-code/backup/backup.sh
+Лістинг 4 - Запуск сервісу автоматичного збереження бекапів бази даних
+#!/bin/bash
+
+# Змінні
+TIMESTAMP=$(date +"%Y-%m-%d_%H-%M")
+BACKUP_FILE="/backups/e-transport-$TIMESTAMP.backup"
+
+# Команда pg_dump
+pg_dump -h postgres -U postgres -d e-transport -F c -f "$BACKUP_FILE"
+
+# Вивід у лог
+echo "Backup created at $BACKUP_FILE"
+
+
+Лістинг 2 - Докерфайл
+FROM postgres:15
+
+RUN apt-get update && apt-get install -y cron
+
+# Копіюємо скрипт та план
+COPY backup.sh /usr/local/bin/backup.sh
+COPY crontab /etc/cron.d/backup-cron
+
+# Дозволи
+RUN chmod +x /usr/local/bin/backup.sh \
+    && chmod 0644 /etc/cron.d/backup-cron
+
+# Додаємо cron job
+RUN crontab /etc/cron.d/backup-cron
+
+# Створюємо директорію для бекапів
+VOLUME /backups
+RUN mkdir -p /backups
+
+# Запускаємо cron
+CMD ["cron", "-f"]
+
